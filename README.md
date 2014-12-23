@@ -1,4 +1,4 @@
-pixi-transitable
-================
+pixi-transitionable
+===================
 
 Manage view states for sprites
