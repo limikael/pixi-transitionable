@@ -1,4 +1,5 @@
 var PIXI = require("pixi.js");
+var ReactableObject = require("./ReactableObject");
 
 /**
  * Holds the properties for a view state.
@@ -10,6 +11,23 @@ function TransitionableState(name, target) {
 	this._children = [];
 	this._properties = {};
 	this._installed = false;
+
+	this._position = new ReactableObject(["x", "y"]);
+	this._scale = new ReactableObject(["x", "y"]);
+
+	this._position.onchange = this.onPropertiesChange.bind(this);
+	this._scale.onchange = this.onPropertiesChange.bind(this);
+}
+
+/**
+ * Properties were changed, set properties in our target if
+ * this state is installed.
+ * @method onPropertiesChange
+ * @private
+ */
+TransitionableState.prototype.onPropertiesChange = function() {
+	if (this._installed)
+		this._target.setStateProperties(this.getProperties());
 }
 
 /**
@@ -48,24 +66,17 @@ TransitionableState.prototype.install = function() {
 TransitionableState.prototype.getProperties = function() {
 	var p = {};
 
-	if (this._properties.position !== undefined) {
-		p.positionX = this._properties.position.x;
-		p.positionY = this._properties.position.y;
-	}
+	if (this._position.x !== undefined)
+		p.positionX = this._position.x;
 
-	if (this._properties.x !== undefined)
-		p.positionX = this._properties.x;
+	if (this._position.y !== undefined)
+		p.positionY = this._position.y;
 
-	if (this._properties.y !== undefined)
-		p.positionY = this._properties.y;
+	if (this._scale.x !== undefined)
+		p.scaleX = this._scale.x;
 
-	if (typeof this._properties.scale == "number") {
-		p.scaleX = this._properties.scale;
-		p.scaleY = this._properties.scale;
-	} else if (typeof this._properties.scale == "object") {
-		p.scaleX = this._properties.scale.x;
-		p.scaleY = this._properties.scale.y;
-	}
+	if (this._scale.y !== undefined)
+		p.scaleY = this._scale.y;
 
 	if (this._properties.tint !== undefined) {
 		var rgb = PIXI.hex2rgb(this._properties.tint);
@@ -75,21 +86,16 @@ TransitionableState.prototype.getProperties = function() {
 		p.tintB = rgb[2];
 	}
 
-	if (this._properties.tintAmount !== undefined) {
+	if (this._properties.tintAmount !== undefined)
 		p.tintAmount = this._properties.tintAmount;
-	}
+
+	if (this._properties.rotation !== undefined)
+		p.rotation = this._properties.rotation;
+
+	if (this._properties.alpha !== undefined)
+		p.alpha = this._properties.alpha;
 
 	return p;
-}
-
-/**
- * Set property.
- */
-TransitionableState.prototype.setProperty = function(property, value) {
-	this._properties[property] = value;
-
-	if (this._installed)
-		this._target.setStateProperties(this.getProperties());
 }
 
 /**
@@ -97,10 +103,10 @@ TransitionableState.prototype.setProperty = function(property, value) {
  * @method addChild
  */
 TransitionableState.prototype.addChild = function(c) {
-	this.children.push(c);
+	this._children.push(c);
 
 	if (this._installed)
-		this.target.addChild(c);
+		this._target.addChild(c);
 }
 
 /**
@@ -115,29 +121,86 @@ TransitionableState.prototype.uninstall = function() {
 }
 
 /**
- * Create a property.
+ * Holds the x and y coordinate.
+ * @property position
+ */
+Object.defineProperty(TransitionableState.prototype, "position", {
+	get: function() {
+		return this._position;
+	},
+
+	set: function(o) {
+		this._position.x = o.x;
+		this._position.y = o.y;
+	}
+});
+
+/**
+ * The scaling of the object. This can be assigned a number,
+ * or the x and y values can be set individually.
+ * @property scale
+ */
+Object.defineProperty(TransitionableState.prototype, "scale", {
+	get: function() {
+		return this._scale;
+	},
+
+	set: function(o) {
+		if (typeof o == "number") {
+			this._scale.x = o;
+			this._scale.y = o;
+			return;
+		}
+
+		this._scale.x = o.x;
+		this._scale.y = o.y;
+	}
+});
+
+Object.defineProperty(TransitionableState.prototype, "x", {
+	get: function() {
+		return this._position.x;
+	},
+
+	set: function(value) {
+		this._position.x = value;
+	}
+});
+
+Object.defineProperty(TransitionableState.prototype, "y", {
+	get: function() {
+		return this._position.y;
+	},
+
+	set: function(value) {
+		this._position.y = value;
+	}
+});
+
+/**
+ * Create a simple property.
  * @static
  * @private
  */
-TransitionableState.createProperty = function(name) {
+TransitionableState.createSimpleProperty = function(name) {
 	Object.defineProperty(TransitionableState.prototype, name, {
 		get: function() {
 			return this._properties[name];
 		},
-		set: function(v) {
-			return this.setProperty(name, v);
+		set: function(value) {
+			this._properties[name] = value;
+
+			if (this._installed)
+				this._target.setStateProperties(this.getProperties());
 		}
 	});
 }
 
-TransitionableState.createProperty("position");
-TransitionableState.createProperty("x");
-TransitionableState.createProperty("y");
-TransitionableState.createProperty("rotation");
-TransitionableState.createProperty("scale");
-TransitionableState.createProperty("alpha");
-TransitionableState.createProperty("visible");
-TransitionableState.createProperty("tint");
-TransitionableState.createProperty("tintAmount");
+TransitionableState.createSimpleProperty("rotation");
+TransitionableState.createSimpleProperty("alpha");
+TransitionableState.createSimpleProperty("tint");
+TransitionableState.createSimpleProperty("tintAmount");
+
+//TransitionableState.createProperty("visible");
 
 module.exports = TransitionableState;

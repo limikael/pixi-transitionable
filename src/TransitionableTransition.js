@@ -13,7 +13,7 @@ function TransitionableTransition(fromState, toState) {
 	this._tween = null;
 	this._easing = TWEEN.Easing.Quadratic.InOut;
 	this._duration = 200;
-
+	this._isPlaying = false;
 	this.complete = null;
 
 	if (!this._target || this._fromState.getTarget() != this._toState.getTarget())
@@ -25,13 +25,18 @@ function TransitionableTransition(fromState, toState) {
  * @method play
  */
 TransitionableTransition.prototype.play = function() {
+	if (this._isPlaying)
+		throw new Error("this shouldn't happen!");
+
+	this._isPlaying = true;
 	this._fromState.uninstall();
 
 	for (var i = 0; i < this._movieClips.length; i++) {
 		var mc = this._movieClips[i];
 		this._target.addChild(mc)
-		mc.gotoAndPlay(0);
+		mc.onComplete = this.onComplete.bind(this);
 		mc.loop = false;
+		mc.gotoAndPlay(0);
 	}
 
 	this._tweenProperties = this._fromState.getProperties();
@@ -42,6 +47,15 @@ TransitionableTransition.prototype.play = function() {
 	this._tween.onUpdate(this.onTweenUpdate.bind(this));
 	this._tween.onComplete(this.onTweenComplete.bind(this));
 	this._tween.start();
+}
+
+/**
+ * On movie clip complete.
+ * @method onMovieClipComplete
+ * @private
+ */
+TransitionableTransition.prototype.onMovieClipComplete = function() {
+	console.log("movieclip complete: " + this._movieClips[0].playing);
 }
 
 /**
@@ -59,13 +73,39 @@ TransitionableTransition.prototype.onTweenUpdate = function(o) {
  * @private
  */
 TransitionableTransition.prototype.onTweenComplete = function() {
+	this._tween = null;
+	this.onComplete();
+}
+
+/**
+ * We are complete, report completion.
+ * But only once!
+ * @method onComplete
+ */
+TransitionableTransition.prototype.onComplete = function() {
+	if (!this._isPlaying)
+		return;
+
+	for (var i = 0; i < this._movieClips.length; i++)
+		if (this._movieClips[i].playing)
+			return;
+
+	if (this._tween)
+		return;
+
+	this._isPlaying = false;
+
 	for (var i = 0; i < this._movieClips.length; i++) {
 		var mc = this._movieClips[i];
+
 		mc.stop();
+		mc.onComplete = null;
 		this._target.removeChild(mc)
 	}
 
 	this._toState.install();
+
+	// Call callback.
 	this.complete();
 }
 

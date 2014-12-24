@@ -23,7 +23,8 @@ function Transitionable() {
 	this._tintAmount = 0;
 
 	this._tintEffect = new PIXI.ColorMatrixFilter();
-	this.filters = [this._tintEffect];
+
+	this._transitionableChildren = [];
 }
 
 inherits(Transitionable, PIXI.DisplayObjectContainer);
@@ -75,7 +76,10 @@ Object.defineProperty(Transitionable.prototype, "current", {
 	},
 
 	set: function(stateName) {
-		if (stateName == this._currentStateName)
+		for (var i = 0; i < this._transitionableChildren.length; i++)
+			this._transitionableChildren[i].current = stateName;
+
+		if (stateName == this._currentStateName || stateName === undefined)
 			return;
 
 		if (!this._states[name])
@@ -95,9 +99,10 @@ Object.defineProperty(Transitionable.prototype, "current", {
 		}
 
 		this._currentTransition = this.transition(this._currentStateName, stateName);
+		this._currentStateName = stateName;
+
 		this._currentTransition.complete = this.onCurrentTransitionComplete.bind(this);
 		this._currentTransition.play();
-		this._currentStateName = stateName;
 	}
 });
 
@@ -148,8 +153,6 @@ Transitionable.prototype.setStateProperties = function(p) {
 
 	if (p.tintR !== undefined || p.tintG !== undefined || p.tintB !== undefined) {
 		this.tint = PIXI.rgb2hex([p.tintR, p.tintG, p.tintB]);
-
-		//console.log("r: " + p.tintR + " g: " + p.tintG + " b: " + p.tintB + " tint: " + PIXI.rgb2hex(p.tintR, p.tintG, p.tintB));
 	}
 
 	if (p.tintAmount !== undefined)
@@ -192,8 +195,8 @@ Object.defineProperty(Transitionable.prototype, "tintAmount", {
 	}
 });
 
-/**
- * Update tint.
+/** 
+ * Update tint properties.
  * @method updateTint
  * @private
  */
@@ -202,6 +205,34 @@ Transitionable.prototype.updateTint = function() {
 		this._tint,
 		this._tintAmount
 	);
+
+	if (!this.filters || this.filters.indexOf(this._tintEffect)<0)
+		this.filters = [this._tintEffect];
+}
+
+/**
+ * Add a Transitionable as a child. This child will follow the
+ * state changes of the parent Transitionable.
+ * @method addTransitionableChild
+ */
+Transitionable.prototype.addTransitionableChild = function(child) {
+	this._transitionableChildren.push(child);
+	this.addChild(child);
+
+	if (this.current)
+		child.current = this.current;
+}
+
+/**
+ * Remove a child previously added with addTransitionableChild.
+ * @method removeTransitionableChild
+ */
+Transitionable.prototype.removeTransitionableChild = function(child) {
+	var index = this._transitionableChildren.indexOf(child);
+	if (index >= 0)
+		this._transitionableChildren.splice(index, 1);
+
+	this.removeChild(child);
 }
 
 module.exports = Transitionable;
