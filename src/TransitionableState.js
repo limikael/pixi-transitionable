@@ -33,6 +33,7 @@ TransitionableState.prototype.onPropertiesChange = function() {
 /**
  * Get target.
  * @method getTarget
+ * @internal
  */
 TransitionableState.prototype.getTarget = function() {
 	return this._target;
@@ -41,6 +42,7 @@ TransitionableState.prototype.getTarget = function() {
 /**
  * Get name of the state.
  * @method getName
+ * @internal
  */
 TransitionableState.prototype.getName = function() {
 	return this._name;
@@ -49,6 +51,7 @@ TransitionableState.prototype.getName = function() {
 /**
  * Install.
  * @method install
+ * @internal
  */
 TransitionableState.prototype.install = function() {
 	this._installed = true;
@@ -62,6 +65,8 @@ TransitionableState.prototype.install = function() {
 
 /**
  * Get properties.
+ * @method getProperties
+ * @internal
  */
 TransitionableState.prototype.getProperties = function() {
 	var p = {};
@@ -99,7 +104,8 @@ TransitionableState.prototype.getProperties = function() {
 }
 
 /**
- * Add child.
+ * Add child that should be added to the target Transitionable
+ * when this state is entered.
  * @method addChild
  */
 TransitionableState.prototype.addChild = function(c) {
@@ -112,6 +118,7 @@ TransitionableState.prototype.addChild = function(c) {
 /**
  * Uninstall.
  * @method uninstall
+ * @internal
  */
 TransitionableState.prototype.uninstall = function() {
 	this._installed = false;
@@ -179,6 +186,7 @@ Object.defineProperty(TransitionableState.prototype, "y", {
 
 /**
  * Create a simple property.
+ * @method createSimpleProperty
  * @static
  * @private
  */

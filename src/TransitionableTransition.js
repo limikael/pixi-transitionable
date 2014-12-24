@@ -2,7 +2,8 @@ var TWEEN = require("tween.js");
 var inherits = require("inherits");
 
 /**
- * @class DisplayTransition
+ * Holds information about the transition between two states.
+ * @class TransitionableTransition
  */
 function TransitionableTransition(fromState, toState) {
 	this._fromState = fromState;
@@ -23,6 +24,7 @@ function TransitionableTransition(fromState, toState) {
 /**
  * Play.
  * @method play
+ * @internal
  */
 TransitionableTransition.prototype.play = function() {
 	if (this._isPlaying)
@@ -81,6 +83,7 @@ TransitionableTransition.prototype.onTweenComplete = function() {
  * We are complete, report completion.
  * But only once!
  * @method onComplete
+ * @private
  */
 TransitionableTransition.prototype.onComplete = function() {
 	if (!this._isPlaying)
@@ -112,6 +115,7 @@ TransitionableTransition.prototype.onComplete = function() {
 /**
  * Get from state.
  * @method getFromState
+ * @internal
  */
 TransitionableTransition.prototype.getFromState = function() {
 	return this._fromState;
@@ -120,22 +124,37 @@ TransitionableTransition.prototype.getFromState = function() {
 /**
  * Get to state.
  * @method getToState
+ * @internal
  */
 TransitionableTransition.prototype.getToState = function() {
 	return this._toState;
 }
 
 /**
- * Add movie clip.
+ * Add MovieClip that should be played when this transition is in progress.
  * @method addMovieClip
+ * @param {PIXI.MovieClip} mc The MovieClip
  */
 TransitionableTransition.prototype.addMovieClip = function(mc) {
 	this._movieClips.push(mc);
 }
 
 /**
- * Get or set the duration of the transition.
+ * Remove MovieClip previously added with addMovieClip.
+ * @method removeMovieClip
+ * @param {PIXI.MovieClip} mc The MovieClip
+ */
+TransitionableTransition.prototype.removeMovieClip = function(mc) {
+	var index = this._movieClips.indexOf(mc);
+
+	if (mc >= 0)
+		this._movieClips.splice(index, 1);
+}
+
+/**
+ * Get or set the duration of the transition in milliseconds.
  * @property duration
+ * @type Number
  */
 Object.defineProperty(TransitionableTransition.prototype, "duration", {
 	get: function() {

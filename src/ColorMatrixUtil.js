@@ -3,6 +3,7 @@ var PIXI = require("pixi.js");
 /**
  * ColorMatrixUtil
  * @class ColorMatrixUtil
+ * @internal
  */
 function ColorMatrixUtil() {}
 

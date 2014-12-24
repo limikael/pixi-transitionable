@@ -2,6 +2,7 @@
  * An object that notifies a function when its
  * properties change.
  * @class ReactableObject
+ * @internal
  */
 function ReactableObject(properties) {
 	if (!(properties instanceof Array))

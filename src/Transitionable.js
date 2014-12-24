@@ -8,6 +8,7 @@ var ColorMatrixUtil = require("./ColorMatrixUtil");
  * A display object that can have different states and transition
  * between them.
  * @class Transitionable
+ * @extends PIXI.DisplayObjectContainer
  */
 function Transitionable() {
 	PIXI.DisplayObjectContainer.call(this);
@@ -32,8 +33,10 @@ inherits(Transitionable, PIXI.DisplayObjectContainer);
 /**
  * Get a reference to the state with specified name.
  * If it does not exist it will be created. The first
- * created state will automatically be made current.
+ * created state will automatically be made the current state.
  * @method state
+ * @param {String} name The name of the state.
+ * @return {TransitionableState} The object that holds properties specific to the state.
  */
 Transitionable.prototype.state = function(name) {
 	if (!name)
@@ -52,7 +55,12 @@ Transitionable.prototype.state = function(name) {
 
 /**
  * Get transition between from and to.
+ * This method will return an object representing the transition between the two
+ * states.
  * @method transition
+ * @param {String} from The name of the state that the transition transitions from.
+ * @param {String} to The name of the state that the transition transitions to.
+ * @return {TransitionableTransition} The object representing the transition.
  */
 Transitionable.prototype.transition = function(from, to) {
 	for (var i = 0; i < this._transitions.length; i++)
