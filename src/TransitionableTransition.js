@@ -166,4 +166,26 @@ Object.defineProperty(TransitionableTransition.prototype, "duration", {
 	}
 });
 
+/**
+ * Get or set the easing function to use when playing this transition.
+ * These transitions are played using the 
+ * <a href="https://github.com/sole/tween.js/">TWEEN.js</a> library, 
+ * so the avilable functions are those defined there, for example:
+ *
+ *     TWEEN.Easing.Elastic.InOut
+ *     TWEEN.Easing.Quadratic.InOut
+ * 
+ * @property easing
+ * @type Object
+ */
+Object.defineProperty(TransitionableTransition.prototype, "easing", {
+	get: function() {
+		return this._easing;
+	},
+
+	set: function(value) {
+		this._easing = value;
+	}
+});
+
 module.exports = TransitionableTransition;

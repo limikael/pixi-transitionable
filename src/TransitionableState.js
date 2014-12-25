@@ -2,7 +2,11 @@ var PIXI = require("pixi.js");
 var ReactableObject = require("./ReactableObject");
 
 /**
- * Holds the properties for a view state.
+ * Holds the properties for a view state. The properties set to the state
+ * will be applied to the target
+ * {{#crossLink "Transitionable"}}{{/crossLink}} when this state is made
+ * current. If this state is already the current state, then chaning the
+ * properties of the state will immediately effect those of the target.
  * @class TransitionableState
  */
 function TransitionableState(name, target) {
@@ -104,15 +108,34 @@ TransitionableState.prototype.getProperties = function() {
 }
 
 /**
- * Add child that should be added to the target Transitionable
+ * Add child that should be added to the target
+ * {{#crossLink "Transitionable"}}{{/crossLink}}
  * when this state is entered.
  * @method addChild
+ * @param {PIXI.DisplayObject} child The child to add.
  */
 TransitionableState.prototype.addChild = function(c) {
 	this._children.push(c);
 
 	if (this._installed)
 		this._target.addChild(c);
+}
+
+/**
+ * Remove a child previously added with
+ * {{#crossLink "TransitionableState/addChild:method"}}{{/crossLink}},
+ * @method removeChild
+ * @param {PIXI.DisplayObject} child The child to remove.
+ */
+TransitionableState.prototype.removeChild = function(c) {
+	var index = this._children.indexOf(c);
+	if (index < 0)
+		return;
+
+	this._children.splice(index, 1);
+
+	if (this._installed)
+		this._target.removeChild(c);
 }
 
 /**
@@ -128,8 +151,12 @@ TransitionableState.prototype.uninstall = function() {
 }
 
 /**
- * Holds the x and y coordinate.
+ * Holds the x and y coordinate. To access it use code like this:
+ * 
+ *     transitionable.state("somestate").position.x = 100;
+ *     transitionable.state("somestate").position.y = 100;
  * @property position
+ * @type Object
  */
 Object.defineProperty(TransitionableState.prototype, "position", {
 	get: function() {
@@ -144,8 +171,19 @@ Object.defineProperty(TransitionableState.prototype, "position", {
 
 /**
  * The scaling of the object. This can be assigned a number,
- * or the x and y values can be set individually.
+ * or the x and y values can be set individually. I.e., you can
+ * set individual scale for the x and y axis using code like this:
+ * 
+ *     transitionable.state("somestate").scale.x = 1.5;
+ *     transitionable.state("somestate").scale.y = 1.5;
+ *
+ * You can also assign a number to this property, and this will
+ * specify the scaling for both axis. For example:
+ * 
+ *     transitionable.state("somestate").scale = 1.5;
+ *
  * @property scale
+ * @type Object
  */
 Object.defineProperty(TransitionableState.prototype, "scale", {
 	get: function() {
@@ -164,6 +202,12 @@ Object.defineProperty(TransitionableState.prototype, "scale", {
 	}
 });
 
+/**
+ * The x coordinate for the object. This is an alias for
+ * `position.x`.
+ * @property x
+ * @type Number
+ */
 Object.defineProperty(TransitionableState.prototype, "x", {
 	get: function() {
 		return this._position.x;
@@ -174,6 +218,12 @@ Object.defineProperty(TransitionableState.prototype, "x", {
 	}
 });
 
+/**
+ * The y coordinate for the object. This is an alias for
+ * `position.y`.
+ * @property y
+ * @type Number
+ */
 Object.defineProperty(TransitionableState.prototype, "y", {
 	get: function() {
 		return this._position.y;
@@ -204,9 +254,33 @@ TransitionableState.createSimpleProperty = function(name) {
 	});
 }
 
+/**
+ * The rotation of the target object when this state is current.
+ * The angle is in radians.
+ * @property rotation
+ * @type Number
+ */
 TransitionableState.createSimpleProperty("rotation");
+
+/**
+ * The opacity of the target object when this state is current.
+ * @property alpha
+ * @type Number
+ */
 TransitionableState.createSimpleProperty("alpha");
+
+/**
+ * The tint of the target object when this state is current.
+ * @property tint
+ * @type Number
+ */
 TransitionableState.createSimpleProperty("tint");
+
+/**
+ * The tintAmount of the target object when this state is current.
+ * @property tintAmount
+ * @type Number
+ */
 TransitionableState.createSimpleProperty("tintAmount");
 
 //TransitionableState.createProperty("visible");

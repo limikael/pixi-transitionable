@@ -158,19 +158,19 @@ TransitionableTestApp.prototype.onAssetsLoaded = function() {
 		square.current = "three";
 	}
 
-	var eggwholebutton = new TransitionableButton("whole");
-	eggwholebutton.x = 300;
-	eggwholebutton.y = 600;
-	this.addChild(eggwholebutton);
-	eggwholebutton.click = function() {
+	b = new TransitionableButton("whole");
+	b.x = 300;
+	b.y = 600;
+	this.addChild(b);
+	b.click = function() {
 		egg.current = "whole";
 	}
 
-	var eggcrackedbutton = new TransitionableButton("cracked");
-	eggcrackedbutton.x = 300;
-	eggcrackedbutton.y = 650;
-	this.addChild(eggcrackedbutton);
-	eggcrackedbutton.click = function() {
+	b = new TransitionableButton("cracked");
+	b.x = 300;
+	b.y = 650;
+	this.addChild(b);
+	b.click = function() {
 		egg.current = "cracked";
 	}
 }
