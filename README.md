@@ -1,12 +1,12 @@
 pixi-transitionable
 ===================
 
+A Transitionable is a DisplayObject that can have different views states and transition smoothly between them.
+
 * [Demo](http://limikael.altervista.org/pixi-transitionable-demo/)
 * [Reference docs](http://limikael.altervista.org/pixi-transitionable-doc/)
 
-A Transitionable is a DisplayObject that can have different views states and transition smoothly between them.
-
-Think of a Transitionable as a DisplayObjectContainer, in the sense that it has properties such as position, rotation and scale to control its appearance. In the case of DisplayObjectContainer you set those properties directly, but in the case of a Transitionable you set up a number of states defining the possible values for those properties. You can then transition between those states and these properties will be tweened to animate smoothly.
+Think of a [Transitionable](http://limikael.altervista.org/pixi-transitionable-doc/classes/Transitionable.html) as a [DisplayObjectContainer](http://www.goodboydigital.com/pixijs/docs/classes/DisplayObjectContainer.html), in the sense that it has properties such as position, rotation and scale to control its appearance. In the case of DisplayObjectContainer you set those properties directly, but in the case of a Transitionable you set up a number of states defining the possible values for those properties. You can then transition between those states and these properties will be tweened to animate smoothly.
 
 For example:
 
@@ -31,4 +31,4 @@ We can control how the transition should happen by accessing a transition object
 
     transitionable.transition("out", "over").duration = 500;
 
-For more details on how to control the properties set by the states and transitions, see the TransitionableState and TransitionableTransition classes.
+For more details on how to control the properties set by the states and transitions, see the [TransitionableState](http://limikael.altervista.org/pixi-transitionable-doc/classes/TransitionableState.html) and [TransitionableTransition](http://limikael.altervista.org/pixi-transitionable-doc/classes/TransitionableTransition.html) classes.
