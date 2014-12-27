@@ -1,8 +1,8 @@
 pixi-transitionable
 ===================
 
-* [Reference docs](http://limikael.altervista.org/pixi-transitionable-doc/)
 * [Demo](http://limikael.altervista.org/pixi-transitionable-demo/)
+* [Reference docs](http://limikael.altervista.org/pixi-transitionable-doc/)
 
 A Transitionable is a DisplayObject that can have different views states and transition smoothly between them.
 
