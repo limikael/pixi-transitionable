@@ -1,6 +1,9 @@
 pixi-transitionable
 ===================
 
+* [Reference docs](http://limikael.altervista.org/pixi-transitionable-doc/)
+* [Demo](http://limikael.altervista.org/pixi-transitionable-demo/)
+
 A Transitionable is a DisplayObject that can have different views states and transition smoothly between them.
 
 Think of a Transitionable as a DisplayObjectContainer, in the sense that it has properties such as position, rotation and scale to control its appearance. In the case of DisplayObjectContainer you set those properties directly, but in the case of a Transitionable you set up a number of states defining the possible values for those properties. You can then transition between those states and these properties will be tweened to animate smoothly.
