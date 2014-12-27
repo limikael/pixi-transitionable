@@ -21,14 +21,20 @@ transitionable.addChild(someContent);
 
 This defines a transitinable that has two states, the "out" state and the "over" state. When the transitionable is in its "out" state, the scale should be 1, and when it is in its "over" state the scale is 1.5. Also, the transitionable has some content, illustrated by the addChild call, and that content could be anything that can be added to a DisplayObjectContainer. Now, to set our transitionable to the "over" state, we can simply do:
 
-    transitionable.current = "over";
+````javascript
+transitionable.current = "over";
+````
 
 Which will cause it to smoothly scale to 1.5 its original size. To make it shrink down again, we can do:
 
-    transitionable.current = "out";
+````javascript
+transitionable.current = "out";
+````
 
 We can control how the transition should happen by accessing a transition object and set properties there. For example, if we would like the transition from the "over" state to the "out" state to take 500 milliseconds we can do:
 
-    transitionable.transition("out", "over").duration = 500;
+````javascript
+transitionable.transition("out", "over").duration = 500;
+````
 
 For more details on how to control the properties set by the states and transitions, see the [TransitionableState](http://limikael.altervista.org/pixi-transitionable-doc/classes/TransitionableState.html) and [TransitionableTransition](http://limikael.altervista.org/pixi-transitionable-doc/classes/TransitionableTransition.html) classes.
