@@ -2,6 +2,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-jasmine-node');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
+	grunt.loadNpmTasks('zipdeploy');
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -33,8 +34,25 @@ module.exports = function(grunt) {
 					"dont-include-tags": "internal"
 				}
 			}
+		},
+
+		zipdeploy: {
+			doc: {
+				dir: "doc",
+				url: "http://limikael.altervista.org",
+				target: "pixi-transitionable-doc",
+				key: "SaCpyeAzJ3YMdULv"
+			},
+
+			demo: {
+				dir: "test/view",
+				url: "http://limikael.altervista.org",
+				target: "pixi-transitionable-demo",
+				key: "TvR9x97AQ7ZvW3e6"
+			}
 		}
 	});
-
+	
 	grunt.registerTask("test", ["jasmine_node"]);
+	grunt.registerTask("doc", ["yuidoc", "zipdeploy:doc"])
 }

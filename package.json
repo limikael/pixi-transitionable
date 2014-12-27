@@ -16,7 +16,8 @@
     "pixiapp": "0.0.7",
     "tween.js": "^0.14.0",
     "yuidoc-die-on-warnings": "0.0.2",
-    "yuidoc-filter-tags": "0.0.2"
+    "yuidoc-filter-tags": "0.0.2",
+    "zipdeploy": "0.0.1"
   },
   "peerDependencies": {
     "pixi.js": "*",
