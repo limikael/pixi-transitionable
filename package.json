@@ -1,6 +1,6 @@
 {
   "name": "pixi-transitionable",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "PIXI DisplayObject that can transition smoothly between visual states",
   "main": "src/Transitionable.js",
   "directories": {

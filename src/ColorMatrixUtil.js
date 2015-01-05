@@ -9,10 +9,31 @@ function ColorMatrixUtil() {}
 
 /**
  * Create a matrix for tinting.
+ * Same tinting algorithm as PIXI.
  * @method tint
  * @static
  */
-ColorMatrixUtil.tint = function(color, amount) {
+ColorMatrixUtil.tint = function(color) {
+	var rgb = PIXI.hex2rgb(color);
+	var r = rgb[0];
+	var g = rgb[1];
+	var b = rgb[2];
+
+	return [
+		r, 0, 0, 0,
+		0, g, 0, 0,
+		0, 0, b, 0,
+		0, 0, 0, 1
+	];
+}
+
+/**
+ * Create a matrix for tinting.
+ * Uses the algorithm from Flash.
+ * @method advancedTint
+ * @static
+ */
+ColorMatrixUtil.advancedTint = function(color, amount) {
 	var LUMA_R = 0.299;
 	var LUMA_G = 0.587;
 	var LUMA_B = 0.114;

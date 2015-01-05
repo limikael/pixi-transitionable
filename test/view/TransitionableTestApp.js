@@ -8,7 +8,7 @@ function TransitionableButton(text) {
 	Transitionable.call(this);
 
 	var g = new PIXI.Graphics();
-	g.beginFill(0xff8000);
+	g.beginFill(0xffffff);
 	g.drawRect(-100, -20, 200, 40);
 
 	this.addChild(g);
@@ -23,16 +23,13 @@ function TransitionableButton(text) {
 	this.buttonMode = true;
 
 	this.state("up").scale = 1;
-	this.state("up").tint = 0xffffff;
-	this.state("up").tintAmount = 0;
+	this.state("up").tint = 0xff8000;
 
 	this.state("over").scale = 1.25;
-	this.state("over").tint = 0xffff80;
-	this.state("over").tintAmount = .5;
+	this.state("over").tint = 0xffc040;
 
 	this.state("down").scale = .75;
-	this.state("down").tint = 0x808080;
-	this.state("down").tintAmount = 1;
+	this.state("down").tint = 0xc08040;
 
 	this.transition("over", "down").duration = 100;
 

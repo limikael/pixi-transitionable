@@ -52,7 +52,7 @@ module.exports = function(grunt) {
 			}
 		}
 	});
-	
+
 	grunt.registerTask("test", ["jasmine_node"]);
 	grunt.registerTask("doc", ["yuidoc", "zipdeploy:doc"])
 }

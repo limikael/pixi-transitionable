@@ -5,12 +5,12 @@ var TransitionableTransition = require("./TransitionableTransition");
 var ColorMatrixUtil = require("./ColorMatrixUtil");
 
 /**
- * A Transitionable is a DisplayObject that can have different views 
- * states and transition smoothly between them. 
- * 
+ * A Transitionable is a DisplayObject that can have different views
+ * states and transition smoothly between them.
+ *
  * Think of a Transitionable as a DisplayObjectContainer,
  * in the sense that it has properties such as position,
- * rotation and scale to control its appearance. 
+ * rotation and scale to control its appearance.
  * In the case of DisplayObjectContainer you set those
  * properties directly, but in the case of a Transitionable you set up a number
  * of states defining the possible values for those properties. You can then
@@ -30,13 +30,13 @@ var ColorMatrixUtil = require("./ColorMatrixUtil");
  * state. When the transitionable is in its "out" state, the scale should be 1,
  * and when it is in its "over" state the scale is 1.5. Also, the transitionable
  * has some content, illustrated by the addChild call, and that content could be
- * anything that can be added to a DisplayObjectContainer. Now, to set our 
+ * anything that can be added to a DisplayObjectContainer. Now, to set our
  * transitionable to the "over" state, we can simply do:
  *
  *     transitionable.current = "over";
  *
  * Which will cause it to smoothly scale to 1.5 its original size. To make it
- * shrink down again, we can do: 
+ * shrink down again, we can do:
  *
  *     transitionable.current = "out";
  *
@@ -46,7 +46,7 @@ var ColorMatrixUtil = require("./ColorMatrixUtil");
  *
  *     transitionable.transition("out", "over").duration = 500;
  *
- * For more details on how to control the properties set by the states and 
+ * For more details on how to control the properties set by the states and
  * transitions, see the {{#crossLink "TransitionableState"}}{{/crossLink}}
  * and {{#crossLink "TransitionableTransition"}}{{/crossLink}} classes.
  * @class Transitionable
@@ -62,9 +62,7 @@ function Transitionable() {
 	this._currentTransition = null;
 	this._queuedTransition = null;
 
-	this._tint = 0;
-	this._tintAmount = 0;
-
+	this._tint = 0xffffff;
 	this._tintEffect = new PIXI.ColorMatrixFilter();
 
 	this._transitionableChildren = [];
@@ -224,12 +222,9 @@ Transitionable.prototype.setStateProperties = function(p) {
 }
 
 /**
- * Get or set tint color. This transitionable will be tinted by the
- * color specified by this proberty, by the amount speficied by the
- * {{#crossLink "Transitionable/tintAmount:property"}}{{/crossLink}}.
- * Beware that if the tintAmount is 0, which is the default, setting 
- * the tint property will have no effect. If you want to apply a 
- * tint, always set the tintAmount in conjunction with the tint.
+ * Get or set tint color. The tint color will be multiplied
+ * with the colors from the content of the display object.
+ * To remove the tint effect set this property to 0xffffff.
  * @property tint
  */
 Object.defineProperty(Transitionable.prototype, "tint", {
@@ -243,35 +238,15 @@ Object.defineProperty(Transitionable.prototype, "tint", {
 	}
 });
 
-/**
- * Set tint amount. The tintAmount specifies how much this Transitionable
- * should be tinted by the color specified using the 
- * {{#crossLink "Transitionable/tint:property"}}{{/crossLink}} property.
- * @property tintAmount
- */
-Object.defineProperty(Transitionable.prototype, "tintAmount", {
-	get: function() {
-		return this._tint;
-	},
-
-	set: function(value) {
-		this._tintAmount = value;
-		this.updateTint();
-	}
-});
-
 /** 
  * Update tint properties.
  * @method updateTint
  * @private
  */
 Transitionable.prototype.updateTint = function() {
-	this._tintEffect.matrix = ColorMatrixUtil.tint(
-		this._tint,
-		this._tintAmount
-	);
+	this._tintEffect.matrix = ColorMatrixUtil.tint(this._tint);
 
-	if (!this.filters || this.filters.indexOf(this._tintEffect)<0)
+	if (!this.filters || this.filters.indexOf(this._tintEffect) < 0)
 		this.filters = [this._tintEffect];
 }
 

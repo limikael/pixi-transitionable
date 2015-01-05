@@ -95,9 +95,6 @@ TransitionableState.prototype.getProperties = function() {
 		p.tintB = rgb[2];
 	}
 
-	if (this._properties.tintAmount !== undefined)
-		p.tintAmount = this._properties.tintAmount;
-
 	if (this._properties.rotation !== undefined)
 		p.rotation = this._properties.rotation;
 
@@ -275,13 +272,6 @@ TransitionableState.createSimpleProperty("alpha");
  * @type Number
  */
 TransitionableState.createSimpleProperty("tint");
-
-/**
- * The tintAmount of the target object when this state is current.
- * @property tintAmount
- * @type Number
- */
-TransitionableState.createSimpleProperty("tintAmount");
 
 //TransitionableState.createProperty("visible");
 
