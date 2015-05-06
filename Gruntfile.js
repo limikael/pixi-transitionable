@@ -55,45 +55,19 @@ module.exports = function(grunt) {
 			}
 		},
 
-		ftps: {
-			demo: {
-				options: {
-					ftp: {
-						host: "ftp.limikael.altervista.org",
-						username: "limikael",
-						password: "Ninja1Get"
-					},
-					remoteDir: "testing-ftps"
-				},
-				files: [{
-					expand: true,
-					src: ["test/view/egg.jpg"]
-				}]
-			}
-		},
-
-		exec: {
-			options: {
-				stdout: true,
-				stderr: true,
-				exitCode: 123
-			},
-			deploy: "lftp -c 'open -u limikael,Ninja1Get ftp.limikael.altervista.org; mirror --verbose --reverse test/view lftptest'"
-		},
-
 		ftpUploadTask: {
 			target: {
 				options: {
 					user: "limikael",
 					password: process.env.ALTERVISTA_PASSWORD,
-					host: "ftp.limikael.altervista.org"
+					host: "ftp.limikael.altervista.org",
+					checksums: "ftpuploadtest.checksums.json"
 				},
 
 				files: [{
 					expand: true,
-					cwd: "test",
 					dest: "ftpuploadtest",
-					src: ["**"]
+					src: ["**", "!**/node_modules/**"]
 				}]
 			}
 		}
