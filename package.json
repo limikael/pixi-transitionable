@@ -13,6 +13,7 @@
     "grunt-contrib-yuidoc": "git+https://github.com/limikael/grunt-contrib-yuidoc.git",
     "grunt-exec": "^0.4.6",
     "grunt-ftps": "^0.1.1",
+    "grunt-ftpuploadtask": "^0.1.1",
     "grunt-jasmine-node": "^0.2.1",
     "inherits": "^2.0.1",
     "pixi.js": "^2.2.0",

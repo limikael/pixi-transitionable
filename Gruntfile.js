@@ -5,6 +5,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('zipdeploy');
 	grunt.loadNpmTasks('grunt-ftps');
 	grunt.loadNpmTasks("grunt-exec");
+	grunt.loadNpmTasks('grunt-ftpuploadtask');
 
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
@@ -78,6 +79,23 @@ module.exports = function(grunt) {
 				exitCode: 123
 			},
 			deploy: "lftp -c 'open -u limikael,Ninja1Get ftp.limikael.altervista.org; mirror --verbose --reverse test/view lftptest'"
+		},
+
+		ftpUploadTask: {
+			target: {
+				options: {
+					user: "limikael",
+					password: process.env.ALTERVISTA_PASSWORD,
+					host: "ftp.limikael.altervista.org"
+				},
+
+				files: [{
+					expand: true,
+					cwd: "test",
+					dest: "ftpuploadtest",
+					src: ["**"]
+				}]
+			}
 		}
 	});
 
