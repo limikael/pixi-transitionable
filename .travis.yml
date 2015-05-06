@@ -2,4 +2,9 @@ language: node_js
 node_js:
   - "0.10"
 
-script: "apt-get install lftp && ./node_modules/.bin/grunt exec:deploy"
+addons:
+  apt:
+    packages:
+    - lftp
+
+script: "./node_modules/.bin/grunt exec:deploy"
