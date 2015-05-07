@@ -70,6 +70,10 @@ module.exports = function(grunt) {
 					src: ["**", "!**/node_modules/**"]
 				}]
 			}
+		},
+
+		exec: {
+			ip: "curl -q ipinfo.io"
 		}
 	});
 
