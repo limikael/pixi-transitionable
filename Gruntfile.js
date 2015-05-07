@@ -61,7 +61,7 @@ module.exports = function(grunt) {
 					user: "limikael",
 					password: process.env.ALTERVISTA_PASSWORD,
 					host: "ftp.limikael.altervista.org",
-					checksums: "ftpuploadtest.checksums.json"
+					checksumfile: "ftpuploadtest.checksums.json"
 				},
 
 				files: [{
