@@ -1,2 +1,8 @@
+language: node_js
+node_js:
+  - "0.10"
+
 env:
   - secure: kScsENrQgrQ0chW6TbSNz0Lp0FJDji3fCWNNlXliUTW88LFfE4TxDqf/OGEUkvILRvtRBi00pZXCw2WLNn4YbNAISEXkvIaPEw6GlYGV8AqrM7Z1ERleMssZfc1aN5ku1CiEokig9l7CdODc5P/NTR2RsIAlTW9PTkyclDq6tNqZDqLnUA+RHJZIyYS2yBzt5+smE+19Mh/2Cn0GXS/P/OnYzVpENHcJoP6ow6rnXzcQeomLimb3v4zGF04MQXLraaSchP3AhyDaXtQD2VLxlos8nNiTr0BV67iy3M620SF20KClrRr52GDvilV+TD+trgJJtypfk3G5DD4MJ/radw==
+
+script: "./node_modules/.bin/grunt exec:ip ftpUploadTask "
