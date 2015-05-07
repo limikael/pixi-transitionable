@@ -1,6 +1,8 @@
 pixi-transitionable
 ===================
 
+[![Build Status](https://api.shippable.com/projects/554b1e20edd7f2c052e3f882/badge?branchName=master)](https://app.shippable.com/projects/554b1e20edd7f2c052e3f882/builds/latest)
+
 A Transitionable is a DisplayObject that can have different views states and transition smoothly between them.
 
 * [Demo](http://limikael.altervista.org/pixi-transitionable-demo/)
