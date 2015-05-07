@@ -73,7 +73,7 @@ module.exports = function(grunt) {
 		},
 
 		exec: {
-			ip: "curl -q ipinfo.io"
+			ip: "curl -s ipinfo.io"
 		}
 	});
 
