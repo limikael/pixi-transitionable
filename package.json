@@ -10,18 +10,17 @@
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.2.1",
     "grunt-cli": "^0.1.13",
-    "grunt-contrib-yuidoc": "git+https://github.com/limikael/grunt-contrib-yuidoc.git",
+    "grunt-contrib-yuidoc": "^0.7.0",
     "grunt-exec": "^0.4.6",
     "grunt-ftps": "^0.1.1",
-    "grunt-ftpuploadtask": "git+https://github.com/limikael/ftpUploadTask",
+    "grunt-ftpuploadtask": "git+https://github.com/limikael/ftpUploadTask#7d56e383d401274769cf964a59054bf2e150f025",
     "grunt-jasmine-node": "^0.2.1",
     "inherits": "^2.0.1",
     "pixi.js": "^2.2.0",
     "pixiapp": "0.0.7",
     "tween.js": "^0.14.0",
     "yuidoc-die-on-warnings": "0.0.2",
-    "yuidoc-filter-tags": "0.0.2",
-    "zipdeploy": "0.0.1"
+    "yuidoc-filter-tags": "0.0.2"
   },
   "peerDependencies": {
     "pixi.js": "*",

@@ -10,4 +10,4 @@ env:
       OnYzVpENHcJoP6ow6rnXzcQeomLimb3v4zGF04MQXLraaSchP3AhyDaXtQD2VLxlos8nNiT
       r0BV67iy3M620SF20KClrRr52GDvilV+TD+trgJJtypfk3G5DD4MJ/radw==
 
-script: "./node_modules/.bin/grunt exec:ip ftpUploadTask "
+script: "./node_modules/.bin/grunt test yuidoc exec:ip ftpUploadTask"

@@ -39,35 +39,36 @@ module.exports = function(grunt) {
 			}
 		},
 
-		zipdeploy: {
-			doc: {
-				dir: "doc",
-				url: "http://limikael.altervista.org",
-				target: "pixi-transitionable-doc",
-				key: "SaCpyeAzJ3YMdULv"
-			},
-
-			demo: {
-				dir: "test/view",
-				url: "http://limikael.altervista.org",
-				target: "pixi-transitionable-demo",
-				key: "TvR9x97AQ7ZvW3e6"
-			}
-		},
-
 		ftpUploadTask: {
-			target: {
+			doc: {
 				options: {
 					user: "limikael",
 					password: process.env.ALTERVISTA_PASSWORD,
 					host: "ftp.limikael.altervista.org",
-					checksumfile: "ftpuploadtest.checksums.json"
+					checksumfile: "_checksums/pixi-transitionable-doc.json"
 				},
 
 				files: [{
 					expand: true,
-					dest: "ftpuploadtest",
-					src: ["**", "!**/node_modules/**"]
+					dest: "pixi-transitionable-doc",
+					cwd: "doc",
+					src: ["**"]
+				}]
+			},
+
+			demo: {
+				options: {
+					user: "limikael",
+					password: process.env.ALTERVISTA_PASSWORD,
+					host: "ftp.limikael.altervista.org",
+					checksumfile: "_checksums/pixi-transitionable-demo.json"
+				},
+
+				files: [{
+					expand: true,
+					dest: "pixi-transitionable-demo",
+					cwd: "test/view",
+					src: ["**"]
 				}]
 			}
 		},
@@ -78,5 +79,5 @@ module.exports = function(grunt) {
 	});
 
 	grunt.registerTask("test", ["jasmine_node"]);
-	grunt.registerTask("doc", ["yuidoc", "zipdeploy:doc"])
+	grunt.registerTask("doc", ["yuidoc", "ftpUploadTask:doc"])
 }
