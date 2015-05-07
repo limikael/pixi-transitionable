@@ -2,7 +2,6 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-browserify');
 	grunt.loadNpmTasks('grunt-jasmine-node');
 	grunt.loadNpmTasks('grunt-contrib-yuidoc');
-	grunt.loadNpmTasks('zipdeploy');
 	grunt.loadNpmTasks('grunt-ftps');
 	grunt.loadNpmTasks("grunt-exec");
 	grunt.loadNpmTasks('grunt-ftpuploadtask');
