@@ -14,7 +14,7 @@ function ColorMatrixUtil() {}
  * @static
  */
 ColorMatrixUtil.tint = function(color) {
-	var rgb = PIXI.hex2rgb(color);
+	var rgb = ColorMatrixUtil.hex2rgb(color);
 	var r = rgb[0];
 	var g = rgb[1];
 	var b = rgb[2];
@@ -38,7 +38,7 @@ ColorMatrixUtil.advancedTint = function(color, amount) {
 	var LUMA_G = 0.587;
 	var LUMA_B = 0.114;
 
-	var rgb = PIXI.hex2rgb(color);
+	var rgb = ColorMatrixUtil.hex2rgb(color);
 
 	var r = rgb[0];
 	var g = rgb[1];
@@ -56,5 +56,23 @@ ColorMatrixUtil.advancedTint = function(color, amount) {
 		0, 0, 0, 1
 	];
 }
+
+/**
+ * Convert hex to rgb.
+ * @method hex2rgb
+ * @static
+ */
+ColorMatrixUtil.hex2rgb = function(hex) {
+	return [(hex >> 16 & 0xFF) / 255, (hex >> 8 & 0xFF) / 255, (hex & 0xFF) / 255];
+};
+
+/**
+ * Convert rgb to hex.
+ * @method rgb2hex
+ * @static
+ */
+ColorMatrixUtil.rgb2hex = function(rgb) {
+    return ((rgb[0]*255 << 16) + (rgb[1]*255 << 8) + rgb[2]*255);
+};
 
 module.exports = ColorMatrixUtil;

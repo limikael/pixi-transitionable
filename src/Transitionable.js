@@ -53,7 +53,7 @@ var ColorMatrixUtil = require("./ColorMatrixUtil");
  * @extends PIXI.DisplayObjectContainer
  */
 function Transitionable() {
-	PIXI.DisplayObjectContainer.call(this);
+	PIXI.Container.call(this);
 
 	this._states = {};
 	this._transitions = [];
@@ -63,12 +63,12 @@ function Transitionable() {
 	this._queuedTransition = null;
 
 	this._tint = 0xffffff;
-	this._tintEffect = new PIXI.ColorMatrixFilter();
+	this._tintEffect = new PIXI.filters.ColorMatrixFilter();
 
 	this._transitionableChildren = [];
 }
 
-inherits(Transitionable, PIXI.DisplayObjectContainer);
+inherits(Transitionable, PIXI.Container);
 
 /**
  * Get a reference to the state with specified name.
@@ -208,7 +208,7 @@ Transitionable.prototype.setStateProperties = function(p) {
 		this.height = p.height;
 
 	if (p.tintR !== undefined || p.tintG !== undefined || p.tintB !== undefined) {
-		this.tint = PIXI.rgb2hex([p.tintR, p.tintG, p.tintB]);
+		this.tint = ColorMatrixUtil.rgb2hex([p.tintR, p.tintG, p.tintB]);
 	}
 
 	if (p.tintAmount !== undefined)

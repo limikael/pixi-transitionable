@@ -1,5 +1,6 @@
 var PIXI = require("pixi.js");
 var ReactableObject = require("./ReactableObject");
+var ColorMatrixUtil = require("./ColorMatrixUtil");
 
 /**
  * Holds the properties for a view state. The properties set to the state
@@ -88,7 +89,7 @@ TransitionableState.prototype.getProperties = function() {
 		p.scaleY = this._scale.y;
 
 	if (this._properties.tint !== undefined) {
-		var rgb = PIXI.hex2rgb(this._properties.tint);
+		var rgb = ColorMatrixUtil.hex2rgb(this._properties.tint);
 
 		p.tintR = rgb[0];
 		p.tintG = rgb[1];

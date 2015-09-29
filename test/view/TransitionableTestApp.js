@@ -61,15 +61,11 @@ function TransitionableTestApp() {
 	this.matte = true;
 	this.matteColor = 0x000000;
 
-	var assets = [
-		"SpriteSheet.json",
-		"egg_whole.png",
-		"egg_cracked.png"
-	];
-
-	this.assetLoader = new PIXI.AssetLoader(assets);
-	this.assetLoader.addEventListener("onComplete", this.onAssetsLoaded.bind(this));
-	this.assetLoader.load();
+	PIXI.loader
+		.add("SpriteSheet.json")
+		.add("egg_whole.png")
+		.add("egg_cracked.png")
+		.load(this.onAssetsLoaded.bind(this));
 
 	this.on("frame", TWEEN.update);
 }
@@ -89,7 +85,7 @@ TransitionableTestApp.prototype.onAssetsLoaded = function() {
 	for (i = 1; i <= 27; i++)
 		explosionFrames.push("Explosion_Sequence_A " + i + ".png");
 
-	var explosion = PIXI.MovieClip.fromFrames(explosionFrames);
+	var explosion = PIXI.extras.MovieClip.fromFrames(explosionFrames);
 	explosion.x = 50;
 	explosion.y = 170;
 	egg.transition("whole", "cracked").addMovieClip(explosion);

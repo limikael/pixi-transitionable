@@ -1,6 +1,6 @@
 {
   "name": "pixi-transitionable",
-  "version": "0.0.2",
+  "version": "3.0.0",
   "description": "PIXI DisplayObject that can transition smoothly between visual states",
   "main": "src/Transitionable.js",
   "directories": {
@@ -13,17 +13,17 @@
     "grunt-contrib-yuidoc": "^0.7.0",
     "grunt-exec": "^0.4.6",
     "grunt-ftps": "^0.1.1",
-    "grunt-ftpuploadtask": "git+https://github.com/limikael/ftpUploadTask#7d56e383d401274769cf964a59054bf2e150f025",
+    "grunt-ftpuploadtask": "0.1.2",
     "grunt-jasmine-node": "^0.2.1",
     "inherits": "^2.0.1",
-    "pixi.js": "^2.2.0",
-    "pixiapp": "0.0.7",
+    "pixi.js": "3.*.*",
+    "pixiapp": "3.0.*",
     "tween.js": "^0.14.0",
     "yuidoc-die-on-warnings": "0.0.2",
     "yuidoc-filter-tags": "0.0.2"
   },
   "peerDependencies": {
-    "pixi.js": "*",
+    "pixi.js": "3.*.*",
     "tween.js": "*"
   },
   "repository": {
